@@ -1,0 +1,82 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Detalhes do usuário "{{ user.name }}"
+{% endblock %}
+
+{% block body %}
+<div class="container mx-auto max-w-7xl px-4">
+	<h2 class="text-4xl font-semibold mb-4">Detalhes do usuário "{{ user.name }}"</h2>
+
+	<div class="flex space-x-2 mb-4">
+		<a class="px-2 py-1.5 rounded bg-indigo-600 text-indigo-100 transition duration-300 hover:bg-indigo-500" href="{{ path('list_users') }}">
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"/>
+			</svg>
+		</a>
+		<a class="px-2 py-1.5 rounded bg-green-600 text-green-100 transition duration-300 hover:bg-green-500" href="{{ path('update_user', {'id': user.id}) }}">
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"/>
+			</svg>
+		</a>
+	</div>
+
+	<div class="flex">
+		<div class="w-full grid grid-cols-2 gap-2">
+			<div class="w-full">
+				Nome:
+				<span class="font-medium">{{ user.name }}</span>
+			</div>
+			<div class="w-full">
+				Email:
+				<span class="font-medium">{{ user.email }}</span>
+			</div>
+			<div class="w-full">
+				Cadastrado em:
+				<span class="font-medium">{{ user.createdAt|date('d/m/Y H:i') }}</span>
+			</div>
+			<div class="w-full">
+				Alterado em:
+				<span class="font-medium">{{ user.updatedAt|date('d/m/Y H:i') }}</span>
+			</div>
+		</div>
+	</div>
+
+	{% if user.getPhones|length %}
+		<div class="flex flex-col mt-4">
+			<h3 class="text-2xl font-semibold mb-4">Telefones cadastrados</h3>
+
+			<div class="flex overflow-x-auto bg-white shadow border">
+				<table class="w-full">
+					<thead>
+						<td class="px-3 py-2 font-semibold uppercase bg-gray-100">#</td>
+						<td class="px-3 py-2 font-semibold uppercase bg-gray-100">DDD</td>
+						<td class="px-3 py-2 font-semibold uppercase bg-gray-100">Telefone</td>
+						<td class="px-3 py-2 font-semibold uppercase bg-gray-100">Cadastrado em</td>
+						<td class="px-3 py-2 font-semibold uppercase bg-gray-100">Alterado em</td>
+						<td class="px-3 py-2 font-semibold uppercase bg-gray-100">Ações</td>
+					</thead>
+				</th>
+			</thead>
+			<tbody>
+				{% for phone in user.getPhones %}
+					<tr>
+						<td class="px-3 py-2">{{ phone.id }}</td>
+						<td class="px-3 py-2">{{ phone.ddd }}</td>
+						<td class="px-3 py-2">{{ phone.number }}</td>
+						<td class="px-3 py-2">{{ phone.createdAt|date('d/m/Y H:i') }}</td>
+						<td class="px-3 py-2">{{ phone.updatedAt|date('d/m/Y H:i') }}</td>
+						<td class="px-3 py-2">
+							<div class="flex space-x-4">
+								<a class="px-2 py-1.5 rounded bg-green-600 text-green-100 transition duration-300 hover:bg-green-500" href="{{ path('update_phone', {'id': phone.id}) }}">
+									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+										<path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"/>
+									</svg>
+								</a>
+							</div>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>{% endif %}</div>{% endblock %}

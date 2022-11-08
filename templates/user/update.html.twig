@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Alterar usuário "{{user.name}}"
+{% endblock %}
+
+{% block body %}
+	<div class="container mx-auto max-w-7xl px-4">
+
+		<h2 class="text-4xl font-semibold mb-2">Alterar usuário "{{user.name}}"</h2>
+		{{ form(form) }}
+		</div>
+	{% endblock %}
